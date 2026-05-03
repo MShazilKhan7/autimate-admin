@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Autism Speech Therapy Platform Design System - Soothing & Calming Colors
+All colors MUST be HSL for consistent theming.
+*/
+
+@layer base {
+  :root {
+    /* Base calming backgrounds */
+    --background: 48 33% 97%; /* Warm Ivory */
+    --foreground: 0 0% 29%; /* Charcoal Gray */
+    --background-gradient: linear-gradient(135deg, hsl(204, 78%, 79%), hsl(130, 36%, 82%)); /* Sky Blue to Mint */
+    
+    /* Soft primary palette */
+    --primary: 179 30% 33%; /* Dark Teal */
+    --primary-foreground: 48 33% 97%;
+    --primary-soft: 130 36% 82%; /* Mint Green */
+    
+    /* Gentle secondary colors */
+    --secondary: 263 69% 89%; /* Lavender Mist */
+    --secondary-foreground: 0 0% 29%;
+    --secondary-soft: 204 78% 79%; /* Soft Sky Blue */
+
+    /* Warm accent colors */
+    --accent: 15 78% 81%; /* Muted Coral */
+    --accent-foreground: 0 0% 29%;
+    --accent-soft: 56 84% 89%; /* Powder Yellow */
+    --accent-gentle: 333 46% 81%; /* Dusty Rose */
+    
+    /* Card and surface colors */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 29%;
+    --card-soft: 48 33% 97%; /* Warm Ivory */
+    
+    /* Interactive elements */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 29%;
+    
+    /* Muted elements */
+    --muted: 204 78% 79%; /* Soft Sky Blue */
+    --muted-foreground: 0 0% 29%;
+    --muted-soft: 263 69% 89%; /* Lavender Mist */
+    
+    /* Form elements */
+    --input: 0 0% 100%;
+    --input-border: 204 78% 79%;
+    --border: 204 78% 79%;
+    --ring: 179 30% 33%;
+    
+    /* System colors */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Therapy-specific colors */
+    --therapy-progress: 130 36% 82%; /* Mint Green for progress */
+    --therapy-success: 56 84% 89%; /* Powder Yellow for achievements */
+    --therapy-level: 333 46% 81%; /* Dusty Rose for levels */
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(204, 78%, 79%), hsl(130, 36%, 82%));
+    --gradient-secondary: linear-gradient(135deg, hsl(263, 69%, 89%), hsl(48, 33%, 97%));
+    --gradient-warm: linear-gradient(135deg, hsl(15, 78%, 81%), hsl(56, 84%, 89%));
+    
+    /* Shadows for calm depth */
+    --shadow-soft: 0 4px 16px -4px hsl(204, 78%, 79%, 0.2);
+    --shadow-gentle: 0 8px 32px -8px hsl(179, 30%, 33%, 0.15);
+    
+    /* Animations */
+    --transition-gentle: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    --radius: 1rem;
+
+    /* Sidebar styling */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 29%;
+    --sidebar-primary: 179 30% 33%;
+    --sidebar-primary-foreground: 48 33% 97%;
+    --sidebar-accent: 204 78% 79%;
+    --sidebar-accent-foreground: 0 0% 29%;
+    --sidebar-border: 204 78% 79%;
+    --sidebar-ring: 179 30% 33%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    background: var(--gradient-primary);
+    min-height: 100vh;
+  }
+  
+  .therapy-card {
+    @apply bg-card rounded-2xl p-6 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-gentle)] transition-all duration-300;
+  }
+  
+  .therapy-button {
+    @apply bg-primary-soft text-foreground px-6 py-3 rounded-xl font-medium hover:scale-105 active:scale-95 transition-all duration-200;
+  }
+}
