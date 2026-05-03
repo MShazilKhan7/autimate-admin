@@ -34,13 +34,8 @@ export const useAuth = () => {
   >({
     mutationFn: authAPI.signin,
     onSuccess: (data: Authentication) => {
-      if(data.user?.isVerified) {
-        setAuthentication({ ...data });
-        data?.user?.isOnboardingFinish ? navigate('/dashboard') : navigate('/onboarding');
-      } else {
-        setPendingEmail(data.user?.email ?? "");
-        setShowEmailVerification(true);navigate('/onboarding');
-      }
+      setAuthentication({ ...data });
+      navigate('/dashboard');
     },
   });
 

@@ -15,12 +15,13 @@ export interface SignInRequest {
   }
   
   export interface User {
-    uuid: string;
-    name: string;
+    _id: string;
+    firstName: string;
+    lastName: string;
     email: string;
-    is_staff: boolean;
+    role: string;
     isVerified: boolean;
-    isOnboardingFinish: boolean
+    isOnboardingFinish: boolean;
   }
   
   export interface Authentication {

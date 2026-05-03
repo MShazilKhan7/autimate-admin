@@ -15,7 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 // Create a client
 const queryClient = new QueryClient();
 
-function App() {
+function AppContent() {
   const { isLoggedIn, isUserLoading } = useAuth();
 
   if (isUserLoading) {
@@ -29,36 +29,44 @@ function App() {
     );
   }
 
+  if (!isLoggedIn) {
+    return (
+      <Routes>
+        <Route path="/auth" element={<LoginPage />} />
+        <Route path="*" element={<Navigate to="/auth" replace />} />
+      </Routes>
+    );
+  }
+
+  return (
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full bg-[#f8fafc]">
+        <AppSidebar />
+        <main className="flex-1 transition-all duration-300 ease-in-out p-4 md:p-8 lg:p-10">
+          <div className="max-w-7xl mx-auto">
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/users" element={<UsersPage />} />
+              <Route path="/social-admin" element={<SocialSkillsAdmin />} />
+              <Route path="/therapy-admin" element={<SpeechTherapyAdmin />} />
+              <Route path="/speech-space-admin" element={<SpeechSpaceAdmin />} />
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </div>
+        </main>
+      </div>
+      <Toaster />
+    </SidebarProvider>
+  );
+}
+
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Router>
-          {!isLoggedIn ? (
-            <Routes>
-              <Route path="/auth" element={<LoginPage />} />
-              <Route path="*" element={<Navigate to="/auth" replace />} />
-            </Routes>
-          ) : (
-            <SidebarProvider>
-              <div className="flex min-h-screen w-full bg-[#f8fafc]">
-                <AppSidebar />
-                <main className="flex-1 transition-all duration-300 ease-in-out p-4 md:p-8 lg:p-10">
-                  <div className="max-w-7xl mx-auto">
-                    <Routes>
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/users" element={<UsersPage />} />
-                      <Route path="/social-admin" element={<SocialSkillsAdmin />} />
-                      <Route path="/therapy-admin" element={<SpeechTherapyAdmin />} />
-                      <Route path="/speech-space-admin" element={<SpeechSpaceAdmin />} />
-                      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                      <Route path="*" element={<Navigate to="/dashboard" replace />} />
-                    </Routes>
-                  </div>
-                </main>
-              </div>
-              <Toaster />
-            </SidebarProvider>
-          )}
+          <AppContent />
         </Router>
       </TooltipProvider>
     </QueryClientProvider>
