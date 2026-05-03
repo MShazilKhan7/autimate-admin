@@ -1,14 +1,33 @@
-import { Users, Brain, Activity, TrendingUp, ChevronRight, Sparkles, Mic, Rocket } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { statsAPI } from '@/api/stats';
+import { Loader2, Users, Sparkles, Mic, Rocket, ChevronRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { NavLink } from 'react-router-dom';
 
+
 export default function Dashboard() {
+  const { data: statsData, isLoading } = useQuery({
+    queryKey: ['dashboard-stats'],
+    queryFn: statsAPI.getDashboardStats
+  });
+
+  const dashboardStats = statsData?.data;
+
   const stats = [
-    { title: 'Registered Users', value: '1,284', icon: Users, color: 'text-blue-600', bg: 'bg-blue-100', link: '/users' },
-    { title: 'Social Tasks', value: '10', icon: Sparkles, color: 'text-violet-600', bg: 'bg-violet-100', link: '/social-admin' },
-    { title: 'Therapy Words', value: '8', icon: Mic, color: 'text-emerald-600', bg: 'bg-emerald-100', link: '/therapy-admin' },
-    { title: 'Game Levels', value: '5', icon: Rocket, color: 'text-sky-600', bg: 'bg-sky-100', link: '/speech-space-admin' },
+    { title: 'Registered Users', value: dashboardStats?.users ?? '0', icon: Users, color: 'text-blue-600', bg: 'bg-blue-100', link: '/users' },
+    { title: 'Social Tasks', value: dashboardStats?.socialTasks ?? '0', icon: Sparkles, color: 'text-violet-600', bg: 'bg-violet-100', link: '/social-admin' },
+    { title: 'Therapy Words', value: dashboardStats?.therapyWords ?? '0', icon: Mic, color: 'text-emerald-600', bg: 'bg-emerald-100', link: '/therapy-admin' },
+    { title: 'Game Levels', value: dashboardStats?.spaceLevels ?? '0', icon: Rocket, color: 'text-sky-600', bg: 'bg-sky-100', link: '/speech-space-admin' },
   ];
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 className="h-10 w-10 animate-spin text-primary" />
+      </div>
+    );
+  }
+
 
   const managementSections = [
     { 
